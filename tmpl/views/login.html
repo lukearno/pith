@@ -1,0 +1,61 @@
+<div class="p-3 lg:py-32 text-center"
+     hx-ext="response-targets">
+  <form id="auth-form"
+        hx-post="/auth/login"
+        hx-target="#auth-legend"
+        hx-target-400="#auth-legend"
+        hx-swap="innerHTML"
+        hx-boost="true"
+        class="rounded-lg text-cyanLight
+               mx-auto lg:pr-10 lg:w-96
+               flex flex-col
+               htmx-added:opacity-0 opacity-100 transition-opacity duration-300
+               ">
+    <fieldset class="flex flex-col gap-2">
+      <legend id="auth-legend" class="text-sm lg:text-lg text-center text-cyan">
+        Please log in:
+      </legend>
+      <x-input name="email" x-type="email" placeholder="your@email.com" autofocus>Email:</x-input>
+      <x-input name="password" x-type="password" placeholder="******">Password:</x-input>
+      <x-input name="otp" x-type="number" placeholder="123456" short>
+        OTP:
+        <span slot="more" class="m-2 lg:m-0 pl-3 lg:col-span-2 flex flex-col">
+          <button class="grow bg-dark
+                         text-cyanLight bold
+                         rounded shadow-md
+                         hover:bg-black
+                         hover:text-orangeLight
+                         border-1 border-black
+                         hover:border-dark
+                         "
+                  type="submit" 
+                  >Login</button>
+        </span>
+      </x-input>
+    </fieldset>
+  </form>
+  <div hx-get="/views/about.html" hx-trigger="load" hx-swap="innerHTML settle:.1s" class="mx-auto lg:w-96"></div>
+  <script>
+/* This is a little debugging for the component integration. TODO: delete
+    (() => {
+      
+      // stop form submission and output field names/values to console
+      const form = document.getElementById('auth-form');
+
+      form.addEventListener('submit', e => {
+    
+        e.preventDefault();
+        console.clear();
+        console.log('Submitted data:');
+        
+        const data = new FormData(form);
+        for (let nv of data.entries()) {
+          console.log(`  ${ nv[0] }: ${ nv[1] }`);
+        }
+
+      });
+
+    })();
+*/
+  </script>
+</div>

@@ -1,0 +1,10 @@
+argon2-cffi
+asgiref
+chevron
+cryptography
+docopt
+fastapi
+psycopg[binary]
+psycopg_pool
+uvicorn
+pyjwt

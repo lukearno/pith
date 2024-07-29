@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@200;400;700&display=swap");
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+  --sans: "Montserrat", "montserrat", "Source Sans", "Helvetica Neue", Helvetica,
+    "Arial Black", Arial, sans-serif;
+  --serif: "Press Start 2P", "Playfair Display", "ITC Bodoni 72", Garamond, Georgia,
+    "Times New Roman", Times, serif;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+     /* Hide scrollbar for IE, Edge and Firefox */
+      .no-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+    }
+

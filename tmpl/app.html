@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="This is an FastAPI+HTMX+Tailwind application start">
+  <title>Luke Arno's Site</title>
+  <script src='https://unpkg.com/element-internals-polyfill'></script>
+  <script src="/js/htmx2.min.js"></script>
+
+  <script src="/js/response-targets.js"></script>
+  <script src="/js/surreal.js"></script>
+
+  <script src="/wc/main.js"></script>
+  <script type="application/javascript" src="/js/game-of-life.js"></script>
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="icon" href="/glider.svg">
+  <!--
+  <meta name="htmx-config" content='{code:"204", swap: false},
+                                  {code:"[23]..", swap: true},
+                                  {code:"400", swap: true},
+                                  {code:"422", swap: true},
+                                  {code:"[45]..", swap: false, error:true},'>
+  -->
+
+</head>
+<body class="text-light
+             text-center
+             flex flex-col
+             bg-gradient-to-r
+             from-dark from-5% 
+             via-dark via-80% 
+             to-black to-95%
+             min-w-128
+             ">
+  <canvas id="game-of-life" height="4096" width="4096"
+          class="fixed top-0 overflow-hidden"
+          style="pointer-events: none"
+          >Game of Life</canvas>
+  <script type="application/javascript">
+    
+    const sizes = [16, 32, 64];
+    const size = sizes[Math.floor(Math.random() * sizes.length)];
+    const periods = [64, 128];
+    const period = periods[Math.floor(Math.random() * periods.length)];
+    const schemes = [
+      [[6, 182, 212],
+       [180, 83, 9],
+       [0, 0, 0]],
+    ];
+    const scheme = schemes[Math.floor(Math.random() * schemes.length)];
+    const gol = new GameOfLife("game-of-life", size, 3600/size, period, scheme);
+    
+  </script>
+  <div class="invisible">visible md:invisible invisible md:visible 
+    Sorry the mobile site is not read yet. It should have been mobile-first, but I was in a rush. I repent.
+  </div> 
+  <div class="relative lg:w-160 lg:mx-auto text-center">
+    <header class="p-0 lg:pb-0 lg:pt-20 m-0 lg:mx-2 
+                   text-center lg:text-left 
+                   lg:bg-gradient-to-b
+                   lg:from-transparent lg:from-20% 
+                   lg:via-transparent lg:via-40% 
+                   lg:to-dark to-80%
+                   ">
+      <div class="flex flex-col lg:flex-row
+                  pb-2 lg:pb-0
+                  border-b-1 border-orange
+                  bg-gradient-to-br 
+                  from-cyan from-30% 
+                  via-orange via-75% 
+                  to-black to-90% 
+                  text-transparent bg-clip-text bg-transparent
+                  ">
+        <h1 class="font-serif text-sm lg:text-lg mb-0 lg:pl-2 pb-0 lg:grow"
+            hx-get="/views/key.html" hx-trigger="click"
+            hx-target="#content" hx-swap="innerHTML"
+            hx-replace-url="/index.html"
+            >Luke Arno's Site</h1>
+        <menu class="text-lg text-center lg:text-right px-3"
+              hx-get="/api/menu"
+              hx-trigger="load"
+              hx-swap="innerHTML"
+              >...</menu>
+    </header>
+    <main class="p-1 m-0 z-10 mx-auto
+                 lg:rounded-xl
+                 lg:w-160
+                 lg:mx-auto
+                 bg-opacity-80
+                 bg-gradient-to-br 
+                 from-dark from-10% 
+                 via-cyan via-70% 
+                 to-dark to-90% 
+                 ">
+      <div class="m-0 rounded-xl text-center bg-black relative">
+        <div class="absolute top-0 right-0 z-30">
+        <a onclick="this.classList.toggle('animate-pulse'); gol.toggle()"
+           class="float-right mr-3 mt-3 p-0 w-4 h-4 flex">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               width="80" height="80" viewBox="0 0 80 80"
+               class="text-orange fill-current m-0 p-0 w-4 h-4">
+            <rect x="30" y="5" width="20" height="20" rx="5"/>
+            <rect x="55" y="30" width="20" height="20" rx="5"/>
+            <rect x="5" y="55" width="20" height="20" rx="5"/>
+            <rect x="30" y="55" width="20" height="20" rx="5"/>
+            <rect x="55" y="55" width="20" height="20" rx="5"/>
+          </svg>
+        </a>
+        </div>
+        <article id="content" class="">
+          <div hx-get="{{view}}{{^view}}/views/key.html{{/view}}"
+               hx-replace-url="{{page}}{{^page}}index{{/page}}.html"
+               hx-trigger="load" hx-swap="outerHTML">
+            Application loading...
+          </div>
+        </article>
+      </div>
+    </main>
+    <footer class="text-orange text-lg text-right px-6">
+    </footer>
+</body>
+</html>    
+

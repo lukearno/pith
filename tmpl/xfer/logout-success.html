@@ -1,0 +1,7 @@
+<div>
+  <h3>Success</h3>
+<a  hx-get="/api/menu" hx-trigger="load"
+   hx-swap="innerHTML settle:.1s" hx-target="menu">Refresh Menu</a>
+<a  hx-get="/views/key.html" hx-trigger="load"
+   hx-swap="innerHTML settle:.1s" hx-target="#content">Refresh Content</a>
+</div>

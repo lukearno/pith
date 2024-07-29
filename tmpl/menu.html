@@ -1,0 +1,33 @@
+<div class="htmx-added:opacity-0 opacity-100 transition-opacity duration-300">
+{{#user}}
+<a class="text-light text-sm" hx-get="/views/key.html" hx-trigger="click"
+   hx-swap="innerHTML settle:.1s" hx-target="#content"
+   hx-replace-url="/key.html"
+   >key</a>
+|
+<a class="text-light text-sm" hx-get="/api/private/cv" hx-trigger="click"
+   hx-swap="innerHTML settle:.1s" hx-target="#content"
+   hx-replace-url="/cv.html"
+   >cv</a>
+|
+<a class="text-light text-sm" hx-get="/api/private/home" hx-trigger="click"
+   hx-swap="innerHTML settle:.1s" hx-target="#content"
+   hx-replace-url="/home.html"
+   >welcome</a>
+|
+<a class="text-cyan" hx-get="/auth/logout" hx-trigger="click"
+   hx-swap="innerHTML" hx-target="#content"
+   >&#10151;</a>
+{{/user}}
+{{^user}}
+<a class="text-light text-sm" hx-get="/views/key.html" hx-trigger="click"
+   hx-swap="innerHTML settle:.1s" hx-target="#content"
+   hx-replace-url="/key.html"
+   >key</a>
+|
+<a class="text-orange" hx-get="/auth/login" hx-trigger="click"
+   hx-swap="innerHTML settle:.1s" hx-target="#content"
+   hx-replace-url="/login.html"
+   >&#9728;</a>
+{{/user}}
+</div>

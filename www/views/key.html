@@ -1,0 +1,17 @@
+<div class="p-3 lg:py-32 lg:px-24 text-center font-sans
+     htmx-added:opacity-0 opacity-100 transition-opacity duration-300">
+  <div class="text-tiny py-6 lg:py-0 lg:text-sm font-serif">Public Key:</div>
+  <a href="/pub.key"
+     class="block text-teeny lg:text-sm font-mono text-cyanLight mt-3 mb-2"
+     >4C25 3890 A41A 2671 A64B  ABCE D2BF E3A0 48C8 4C47</a>
+  <a href="/pub.key" 
+     class="block font-mono text-teeny h-64 overflow-hidden
+            bg-gradient-to-br
+            from-orangeLight from-10% 
+            via-dark via-60% 
+            to-black to-80% 
+            text-transparent bg-clip-text
+            "><pre>
+      <code hx-get="/pub.key" hx-swap="innerHTML" hx-trigger="load">Key loading...</code>
+  </pre></a>
+</div>
