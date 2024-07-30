@@ -3,7 +3,7 @@
 Usage:
 pith http <host> <port> [dev]
 pith profile <host> <port> [dev]
-pith add-guest <email> <first-name> <last-name>
+pith add-guest <role> <email> <first-name> <last-name>
 
 Options:
   -h --help     Show this screen.
@@ -14,6 +14,7 @@ Args:
   <port>             port number
   <first-name>       firt name
   <last-name>        last name
+  <role>             role
   <email>            email
   <filename>         file name
 """
@@ -46,6 +47,7 @@ class CLI(object):
                 " ".join(
                     [
                         "add-guest",
+                        self.opt["<role>"],
                         self.opt["<email>"],
                         self.opt["<first-name>"],
                         self.opt["<last-name>"],
@@ -54,6 +56,7 @@ class CLI(object):
             )
             access_token, totp, uri = asyncio.run(
                 auth.add_guest(
+                    self.opt["<role>"],
                     self.opt["<email>"],
                     self.opt["<first-name>"],
                     self.opt["<last-name>"],
@@ -61,10 +64,13 @@ class CLI(object):
             )
             access_token = access_token.decode("ascii")
             totp = totp.decode("ascii")
-            print("totp", totp)
-            print("uri", uri)
-            print("token", access_token)
-            print("link", f"https://lukearno.com/auth/access/{access_token}")
+            print("first:", self.opt["<first-name>"])
+            print("last: ", self.opt["<last-name>"])
+            print("role: ", self.opt["<role>"])
+            print("totp: ", totp)
+            print("uri:  ", uri)
+            print("token:", access_token)
+            print("link: ", f"https://lukearno.com/auth/access/{access_token}")
 
     def http(self, host, port, dev=False):
         extras = {}

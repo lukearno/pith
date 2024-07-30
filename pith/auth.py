@@ -143,12 +143,12 @@ def verify_password(email: str, hash: str, password: str):
         return False
 
 
-async def new_user(email: str, first_name: str, last_name: str):
+async def new_user(email: str, first_name: str, last_name: str, role: str):
     async with db.cursor() as cursor:
         await cursor.execute(
             """
         with ins (u_id) as (
-          insert into appuser (doreset) values (true)
+          insert into appuser (doreset, role) values (true, %s)
           returning id
         )
         insert into appuser_pii (
@@ -161,6 +161,7 @@ async def new_user(email: str, first_name: str, last_name: str):
         select ins.u_id, %s, %s, %s, %s from ins
             """,
             [
+                role,
                 email,
                 first_name,
                 last_name,
@@ -200,6 +201,7 @@ async def load_user(email: str = None, accesstoken: str = None) -> Optional[User
                  , u.doreset as doreset
                  , u.confirmed as confirmed
                  , u.active as active
+                 , u.role as role
                  , pii.email as email
                  , pii.first_name as first_name
                  , pii.last_name as last_name
@@ -217,6 +219,7 @@ async def load_user(email: str = None, accesstoken: str = None) -> Optional[User
                  , u.doreset as doreset
                  , u.confirmed as confirmed
                  , u.active as active
+                 , u.role as role
                  , pii.email as email
                  , pii.first_name as first_name
                  , pii.last_name as last_name
@@ -256,10 +259,10 @@ def update_user(user: User):
         cursor.connection.commit()
 
 
-async def add_guest(email: str, first_name: str, last_name: str):
+async def add_guest(role: str, email: str, first_name: str, last_name: str):
     totp = totp_key()
     password = base64.b64encode(secrets.token_bytes(9))
-    await new_user(email, first_name, last_name)
+    await new_user(email, first_name, last_name, role)
     await set_credentials(email, password, totp)
     access_token = await add_access_token(email)
     based_totp = base64.b32encode(totp)

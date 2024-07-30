@@ -18,3 +18,7 @@ def render_string(path: str, data: Optional[Any] = None) -> str:
 
 def render(path: str, data: Optional[Any] = None) -> Response:
     return Response(content=render_string(path, data), media_type="text/html")
+
+
+def exists(path: str):
+    return os.path.isfile(PITH_TEMPLATE_DIR + path)

@@ -25,3 +25,5 @@ www/index.html
 www/key.html
 www/login.html
 www/css/site.css
+tmpl/views/cv*
+tmpl/priv
