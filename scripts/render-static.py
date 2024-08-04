@@ -6,8 +6,8 @@ pages = [
     ("index", "/views/key.html"),
     ("key", "/views/key.html"),
     ("login", "/auth/login"),
-    ("cv", "/api/private/cv"),
-    ("home", "/api/private/home"),
+    ("cv", "/api/private/cv.html"),
+    ("home", "/api/private/home.html"),
 ]
 
 for page, view in pages:

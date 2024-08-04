@@ -1,10 +1,11 @@
 import os
+import json
 from typing import Any, Optional
 
 import chevron
 
 
-from fastapi import Response
+from fastapi.responses import Response, FileResponse
 
 
 PITH_TEMPLATE_DIR = os.getenv("PITH_TEMPLATE_DIR")
@@ -22,3 +23,18 @@ def render(path: str, data: Optional[Any] = None) -> Response:
 
 def exists(path: str):
     return os.path.isfile(PITH_TEMPLATE_DIR + path)
+
+
+def load_json(path: str):
+    if exists(path):
+        with open(PITH_TEMPLATE_DIR + path) as fp:
+            return json.load(fp)
+    else:
+        return {}
+
+
+def serve_file(path: str, media_type: str = "application/pdf"):
+    return FileResponse(
+        PITH_TEMPLATE_DIR + path,
+        media_type=media_type,
+    )
